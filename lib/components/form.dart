@@ -2,20 +2,31 @@
 
 import 'package:flutter/material.dart';
 
-class FormComponent extends StatelessWidget {
+class FormComponent extends StatefulWidget {
   FormComponent({super.key});
 
+  @override
+  State<FormComponent> createState() => _FormComponentState();
+}
+
+class _FormComponentState extends State<FormComponent> {
   final _formKey = GlobalKey<FormState>();
+
+  //Controllers
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 icon: Icon(Icons.email),
@@ -40,6 +51,7 @@ class FormComponent extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
+              controller: _passwordController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               decoration: InputDecoration(
@@ -64,7 +76,7 @@ class FormComponent extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -73,9 +85,15 @@ class FormComponent extends StatelessWidget {
                     ),
                   );
                 }
+                print(_emailController.text);
+                print(_passwordController.text);
               },
-              child: Text(
-                'Login',
+              icon: Icon(
+                Icons.login,
+                color: Colors.white,
+              ),
+              label: Text(
+                'Sign In',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -88,7 +106,7 @@ class FormComponent extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   ),
                   elevation: MaterialStateProperty.all<double>(5)),
-            )
+            ),
           ],
         ),
       ),
