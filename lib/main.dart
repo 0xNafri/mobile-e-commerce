@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_e_commerce/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_e_commerce/pages/main_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,6 +22,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
           useMaterial3: true,
         ),
-        home: const LoginPage());
+        home: MainPage());
   }
 }

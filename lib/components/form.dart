@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class FormComponent extends StatefulWidget {
@@ -15,6 +16,21 @@ class _FormComponentState extends State<FormComponent> {
   //Controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  //Sign In method
+  Future<void> signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +100,10 @@ class _FormComponentState extends State<FormComponent> {
                       content: Text('Processing Data'),
                     ),
                   );
+                  signIn();
                 }
-                print(_emailController.text);
-                print(_passwordController.text);
+                // print(_emailController.text);
+                // print(_passwordController.text);
               },
               icon: Icon(
                 Icons.login,
